@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Редактирование{% endblock %}
+{% block main %}
+    <div class="container">
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Сохранить" class="btn btn-outline-primary"/>
+    </form>
+    </div>
+{% endblock %}

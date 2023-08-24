@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Pixel{% endblock %}
+{% block main %}
+{% if products %}
+<div class="container-sorted">
+    <p>
+        Сортировка
+    </p>
+    <select>
+        <option>По умолчанию</option>
+        <option>Дешевле</option>
+        <option>Дороже</option>
+    </select>
+</div>
+<div class="container-products">
+    {% for i in products %}
+    <div class="cart">
+        <img src="{{ i.img.url }}" />
+        <h3>
+            {{i.title}}
+        </h3>
+        <p>
+            {{i.description}}
+        </p>
+        {% if user.is_authenticated %}
+        <a class="btn btn-primary" href="{% url 'app:add_product' user.username i.id %}">
+            Купить
+        </a>
+        {% else %}
+        <a class="btn btn-primary" href="{% url 'app:login'%}">
+            Купить
+        </a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+{% if is_main %}
+<img src="{%static "img/2.png"%}" />
+{% else %}
+<p>
+    В данной категории нет товаров.
+</p>
+{% endif %}
+{% endif %}
+{% endblock %}

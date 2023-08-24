@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block main %}
+<div class="container-sorted">
+    <p>
+        Есть аккаунт? <a style="color: black; font-size: 16px;" href="{% url 'app:login' %}">Войдите</a>
+    </p>
+</div>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+    </form>
+{% endblock %}

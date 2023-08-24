@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Pixel Корзина{% endblock %}
+{% block main %}
+{% if user.is_authenticated %}
+<p>
+    Корзина
+</p>
+{% if shopping_cart.products %}
+<div class="container-products">
+    {% for i in shopping_cart.products.all %}
+    <div class="cart">
+        <img src="{{ i.img.url }}" />
+        <p>
+            {{i.title}}
+        </p>
+        <a class="btn btn-primary" href="{% url 'app:remove_product' user.username i.id %}">
+            Удалить
+        </a>
+    </div>
+    {% endfor %}
+</div>
+<div class="container-sorted">
+    <p>
+        Итого: {{price_all}}
+    </p>
+</div>
+{% else %}
+<p>
+    Пока здесь пусто
+</p>
+{% endif %}
+{% else %}
+<div class="container-sorted">
+    <p>
+       Вы не вошли в аккаунт <a style="color: black; font-size: 16px;" href="{% url 'app:login' %}">Войти</a>
+    </p>
+</div>
+{% endif %}
+{% endblock %}

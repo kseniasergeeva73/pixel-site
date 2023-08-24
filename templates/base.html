@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <header>
+    <div class="header-row">
+        <div class="header-logo">
+            <p>
+                ПИКСЕЛЬ
+            </p>
+        </div>
+        <p>
+            Режим работы: с 10 до 21, без выходных
+        </p>
+        {% if user.is_authenticated %}
+            <a href="{% url 'app:shopping_cart' user.username %}">
+                Корзина
+            </a>
+            <a href="{% url 'app:logout' %}">
+                Выйти
+            </a>
+        {% else %}
+            <a href="{% url 'app:login' %}">
+                Войти в личный кабинет
+            </a>
+        {% endif %}
+    </div>
+    <div class="header-bar">
+        <div class="bar-elem">
+            <a href="{% url 'app:index' %}">
+                Главная
+            </a>
+        </div>
+        <div class="bar-elem">
+            <a href="{% url 'app:about' %}">
+                О нас
+            </a>
+        </div>
+        <div class="bar-elem">
+            <a href="{% url 'app:delivery' %}">
+                Доставка и оплата
+            </a>
+        </div>
+        <div class="bar-elem">
+            <a href="{% url 'app:guarantee' %}">
+                Гарантия
+            </a>
+        </div>
+        <div class="bar-elem">
+            <a href="{% url 'app:return' %}">
+                Условия возврата
+            </a>
+        </div>
+        <div class="bar-elem">
+            <a href="{% url 'app:contact' %}">
+                Контакты
+            </a>
+        </div>
+    </div>
+</header>
+<div class="container-main">
+    <div class="container-main-row">
+        <div class="body-menu">
+            <div class="body-menu-head">
+                <p>
+                    Каталог
+                </p>
+            </div>
+            {% for item in categories %}
+                <div class="body-menu-elem">
+                    <a href="{% url 'app:products' item.id %}">
+                        {{ item.title }}
+                    </a>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+        <div class="container-about">
+            {% block main %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% block login %}{% endblock %}
+<footer>
+</footer>
+</body>
+</html>
